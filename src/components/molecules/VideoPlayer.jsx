@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
+import { downloadService } from "@/services/api/downloadService";
 
 const VideoPlayer = ({ lesson, onProgress, onComplete, showNotesPanel, onToggleNotes }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -9,6 +11,9 @@ const VideoPlayer = ({ lesson, onProgress, onComplete, showNotesPanel, onToggleN
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showControls, setShowControls] = useState(true);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+  const [isDownloaded, setIsDownloaded] = useState(false);
   const videoRef = useRef(null);
   const progressRef = useRef(null);
 
@@ -69,11 +74,36 @@ const VideoPlayer = ({ lesson, onProgress, onComplete, showNotesPanel, onToggleN
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
+
+  const handleDownload = async () => {
+    if (isDownloading || isDownloaded) return;
+    
+    setIsDownloading(true);
+    setDownloadProgress(0);
+    
+    try {
+      toast.info("Download started...", { position: "bottom-right" });
+      
+      await downloadService.downloadVideo(lesson, (progress) => {
+        setDownloadProgress(progress);
+        if (progress % 25 === 0) {
+          toast.info(`Download progress: ${progress}%`, { position: "bottom-right" });
+        }
+      });
+      
+      setIsDownloaded(true);
+      toast.success("Video downloaded successfully!", { position: "bottom-right" });
+    } catch (error) {
+      toast.error("Download failed. Please try again.", { position: "bottom-right" });
+    } finally {
+      setIsDownloading(false);
+      setDownloadProgress(0);
+    }
   };
 
   const progressPercentage = duration ? (currentTime / duration) * 100 : 0;
-
   return (
     <div className="relative bg-black rounded-xl overflow-hidden group">
       <video
@@ -157,7 +187,7 @@ const VideoPlayer = ({ lesson, onProgress, onComplete, showNotesPanel, onToggleN
             </span>
 </div>
           
-          <div className="flex items-center gap-2">
+<div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="small"
@@ -165,6 +195,24 @@ const VideoPlayer = ({ lesson, onProgress, onComplete, showNotesPanel, onToggleN
               className={`text-white hover:bg-white/20 ${showNotesPanel ? 'bg-white/20' : ''}`}
             >
               <ApperIcon name="FileText" size={20} />
+            </Button>
+            
+            <Button
+              variant="ghost"
+              size="small"
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className={`text-white hover:bg-white/20 ${isDownloaded ? 'bg-green-500/20' : ''}`}
+              title={isDownloaded ? "Downloaded" : isDownloading ? `Downloading ${downloadProgress}%` : "Download for offline viewing"}
+            >
+              {isDownloading ? (
+                <div className="flex items-center gap-1">
+                  <ApperIcon name="Loader" size={16} className="animate-spin" />
+                  <span className="text-xs">{downloadProgress}%</span>
+                </div>
+              ) : (
+                <ApperIcon name={isDownloaded ? "CheckCircle" : "Download"} size={20} />
+              )}
             </Button>
             
             <Button

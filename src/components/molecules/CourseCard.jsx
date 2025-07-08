@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
 import Badge from "@/components/atoms/Badge";
 import Button from "@/components/atoms/Button";
 import Progress from "@/components/atoms/Progress";
-
-const CourseCard = ({ course, userProgress }) => {
+const CourseCard = ({ course, userProgress, isBookmarked, onBookmarkToggle }) => {
   const navigate = useNavigate();
   
   const progress = userProgress?.overallProgress || 0;
@@ -33,8 +33,19 @@ const CourseCard = ({ course, userProgress }) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
-  };
+};
 
+  const handleBookmarkClick = async (e) => {
+    e.stopPropagation();
+    try {
+      await onBookmarkToggle(course.Id);
+      toast.success(
+        isBookmarked ? "Course removed from wishlist" : "Course added to wishlist"
+      );
+    } catch (err) {
+      toast.error("Failed to update wishlist");
+    }
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -48,8 +59,23 @@ const CourseCard = ({ course, userProgress }) => {
             src={course.thumbnail} 
             alt={course.title}
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-          <div className="absolute top-4 right-4">
+/>
+          <div className="absolute top-4 right-4 flex items-center gap-2">
+            <button
+              onClick={handleBookmarkClick}
+              className={`p-2 rounded-full transition-all duration-200 ${
+                isBookmarked 
+                  ? "bg-red-500 text-white hover:bg-red-600" 
+                  : "bg-white/80 text-gray-600 hover:bg-white hover:text-red-500"
+              }`}
+              title={isBookmarked ? "Remove from wishlist" : "Add to wishlist"}
+            >
+              <ApperIcon 
+                name="Heart" 
+                size={16} 
+                className={isBookmarked ? "fill-current" : ""} 
+              />
+            </button>
             <Badge variant={difficultyColors[course.difficulty]} size="small">
               {course.difficulty}
             </Badge>

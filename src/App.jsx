@@ -7,19 +7,20 @@ import CourseDetailPage from "@/components/pages/CourseDetailPage";
 import LearningPage from "@/components/pages/LearningPage";
 import Dashboard from "@/components/pages/Dashboard";
 import ProgressPage from "@/components/pages/Progress";
-
+import WishlistPage from "@/components/pages/WishlistPage";
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Header />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Routes>
+<Routes>
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/:courseId" element={<CourseDetailPage />} />
             <Route path="/courses/:courseId/learn" element={<LearningPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
             <Route path="/progress" element={<ProgressPage />} />
           </Routes>
         </main>

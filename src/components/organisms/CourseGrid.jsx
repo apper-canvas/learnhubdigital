@@ -8,11 +8,12 @@ import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
 import { courseService } from "@/services/api/courseService";
 import { progressService } from "@/services/api/progressService";
-
+import { bookmarkService } from "@/services/api/bookmarkService";
 const CourseGrid = () => {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [userProgress, setUserProgress] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   
@@ -21,7 +22,6 @@ const CourseGrid = () => {
     difficulty: "",
     search: ""
   });
-
   const categories = [
     { value: "Web Development", label: "Web Development" },
     { value: "Data Science", label: "Data Science" },
@@ -35,18 +35,20 @@ const CourseGrid = () => {
     { value: "advanced", label: "Advanced" }
   ];
 
-  const loadData = async () => {
+const loadData = async () => {
     try {
       setLoading(true);
       setError("");
       
-      const [coursesData, progressData] = await Promise.all([
+      const [coursesData, progressData, bookmarksData] = await Promise.all([
         courseService.getAll(),
-        progressService.getAll()
+        progressService.getAll(),
+        bookmarkService.getAll()
       ]);
       
       setCourses(coursesData);
       setUserProgress(progressData);
+      setBookmarks(bookmarksData);
     } catch (err) {
       setError("Failed to load courses. Please try again.");
       console.error("Error loading courses:", err);
@@ -101,10 +103,27 @@ const CourseGrid = () => {
     });
   };
 
-  const getUserProgress = (courseId) => {
+const getUserProgress = (courseId) => {
     return userProgress.find(progress => progress.courseId === courseId);
   };
 
+  const isBookmarked = (courseId) => {
+    return bookmarks.some(bookmark => bookmark.courseId === courseId);
+  };
+
+  const handleBookmarkToggle = async (courseId) => {
+    try {
+      if (isBookmarked(courseId)) {
+        await bookmarkService.delete(courseId);
+        setBookmarks(prev => prev.filter(bookmark => bookmark.courseId !== courseId));
+      } else {
+        const newBookmark = await bookmarkService.create({ courseId });
+        setBookmarks(prev => [...prev, newBookmark]);
+      }
+    } catch (err) {
+      console.error("Error toggling bookmark:", err);
+    }
+  };
   if (loading) return <Loading />;
   if (error) return <Error message={error} onRetry={loadData} />;
 
@@ -183,10 +202,12 @@ const CourseGrid = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-            >
+>
               <CourseCard 
                 course={course} 
                 userProgress={getUserProgress(course.Id)}
+                isBookmarked={isBookmarked(course.Id)}
+                onBookmarkToggle={handleBookmarkToggle}
               />
             </motion.div>
           ))}

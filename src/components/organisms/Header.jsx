@@ -10,12 +10,12 @@ const Header = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navigationItems = [
+const navigationItems = [
     { name: "Browse Courses", href: "/courses", icon: "BookOpen" },
     { name: "My Learning", href: "/dashboard", icon: "User" },
+    { name: "My Wishlist", href: "/wishlist", icon: "Bookmark" },
     { name: "Progress", href: "/progress", icon: "TrendingUp" }
   ];
-
   const handleSearch = (searchTerm) => {
     if (searchTerm.trim()) {
       navigate(`/courses?search=${encodeURIComponent(searchTerm)}`);

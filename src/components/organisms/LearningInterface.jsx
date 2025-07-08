@@ -357,17 +357,27 @@ const currentLessonIndex = course.lessons.findIndex(l => l.id === currentLesson?
                   </div>
                 )}
               </div>
-            ) : (
+) : (
               <div className="space-y-6">
-                <VideoPlayer
-                  lesson={currentLesson}
-                  onComplete={handleVideoComplete}
-                  onProgress={handleVideoProgress}
-                  showNotesPanel={showNotesPanel}
-                  onToggleNotes={toggleNotesPanel}
-                  showTranscriptPanel={showTranscriptPanel}
-                  onToggleTranscript={toggleTranscriptPanel}
-                />
+                {currentLesson ? (
+                  <VideoPlayer
+                    lesson={currentLesson}
+                    onComplete={handleVideoComplete}
+                    onProgress={handleVideoProgress}
+                    showNotesPanel={showNotesPanel}
+                    onToggleNotes={toggleNotesPanel}
+                    showTranscriptPanel={showTranscriptPanel}
+                    onToggleTranscript={toggleTranscriptPanel}
+                  />
+                ) : (
+                  <div className="relative bg-black rounded-xl overflow-hidden aspect-video flex items-center justify-center">
+                    <div className="text-center text-white p-6">
+                      <ApperIcon name="AlertCircle" size={32} className="mx-auto mb-4 text-red-400" />
+                      <h3 className="text-lg font-semibold mb-2">No Lesson Selected</h3>
+                      <p className="text-sm text-gray-300">Please select a lesson from the sidebar to continue.</p>
+                    </div>
+                  </div>
+                )}
                 
                 <div className="flex items-center justify-between">
                   <Button

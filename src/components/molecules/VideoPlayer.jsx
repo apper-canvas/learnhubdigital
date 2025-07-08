@@ -191,11 +191,13 @@ const handleVolumeChange = (e) => {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const handleDownload = async () => {
+const handleDownload = async () => {
     if (!lesson?.videoUrl) {
       toast.error('Video URL not available for download')
       return
-try {
+    }
+    
+    try {
       setIsDownloading(true)
       setDownloadProgress(0)
       
@@ -301,11 +303,7 @@ onLoadStart={() => setVideoLoading(true)}
         onCanPlay={() => setVideoLoading(false)}
         preload="metadata"
         playsInline
-        aria-label={`Video lesson: ${lesson?.title || 'Course video'}`}
-        role="application"
-        tabIndex={0}
-        onKeyDown={handleVideoKeyboard}
-        aria-label={`Video lesson: ${lesson?.title || 'Course video'}`}
+aria-label={`Video lesson: ${lesson?.title || 'Course video'}`}
         role="application"
         tabIndex={0}
         onKeyDown={handleVideoKeyboard}
@@ -439,7 +437,6 @@ onLoadStart={() => setVideoLoading(true)}
               }}
               className="text-white hover:bg-white/20"
             >
-              <ApperIcon name="Maximize" size={20} />
               <ApperIcon name="Maximize" size={20} />
             </Button>
           </div>

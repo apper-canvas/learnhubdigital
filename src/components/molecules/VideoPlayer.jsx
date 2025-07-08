@@ -5,7 +5,7 @@ import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 import { downloadService } from "@/services/api/downloadService";
 
-const VideoPlayer = ({ lesson, onProgress, onComplete, showNotesPanel, onToggleNotes }) => {
+const VideoPlayer = ({ lesson, onProgress, onComplete, showNotesPanel, onToggleNotes, showTranscriptPanel, onToggleTranscript }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -197,6 +197,14 @@ return `${minutes}:${seconds.toString().padStart(2, "0")}`;
               <ApperIcon name="FileText" size={20} />
             </Button>
             
+            <Button
+              variant="ghost"
+              size="small"
+              onClick={onToggleTranscript}
+              className={`text-white hover:bg-white/20 ${showTranscriptPanel ? 'bg-white/20' : ''}`}
+            >
+              <ApperIcon name="MessageSquare" size={20} />
+            </Button>
             <Button
               variant="ghost"
               size="small"

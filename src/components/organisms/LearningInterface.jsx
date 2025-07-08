@@ -1,16 +1,20 @@
-import { useState, useEffect } from "react";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 import Card from "@/components/atoms/Card";
 import Progress from "@/components/atoms/Progress";
-import VideoPlayer from "@/components/molecules/VideoPlayer";
-import QuizQuestion from "@/components/molecules/QuizQuestion";
-import NotesPanel from "@/components/molecules/NotesPanel";
-import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
+import NotesPanel from "@/components/molecules/NotesPanel";
+import QuizQuestion from "@/components/molecules/QuizQuestion";
+import VideoPlayer from "@/components/molecules/VideoPlayer";
+import coursesData from "@/services/mockData/courses.json";
+import bookmarksData from "@/services/mockData/bookmarks.json";
+import downloadedVideosData from "@/services/mockData/downloadedVideos.json";
+import progressData from "@/services/mockData/progress.json";
 import { courseService } from "@/services/api/courseService";
 import { progressService } from "@/services/api/progressService";
 
@@ -25,10 +29,11 @@ const [course, setCourse] = useState(null);
   const [currentQuiz, setCurrentQuiz] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState([]);
-  const [showQuizResults, setShowQuizResults] = useState(false);
+const [showQuizResults, setShowQuizResults] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showNotesPanel, setShowNotesPanel] = useState(false);
+  const [showTranscriptPanel, setShowTranscriptPanel] = useState(false);
   const [currentVideoTime, setCurrentVideoTime] = useState(0);
 
   const loadData = async () => {
@@ -176,11 +181,15 @@ const handleRetakeQuiz = () => {
   };
 
   const handleVideoProgress = (time) => {
-    setCurrentVideoTime(time);
+setCurrentVideoTime(time);
   };
 
   const toggleNotesPanel = () => {
     setShowNotesPanel(!showNotesPanel);
+  };
+
+  const toggleTranscriptPanel = () => {
+    setShowTranscriptPanel(!showTranscriptPanel);
   };
 
   if (loading) return <Loading />;
@@ -192,7 +201,11 @@ const handleRetakeQuiz = () => {
 
 return (
     <div className="max-w-7xl mx-auto">
-      <div className={`grid grid-cols-1 gap-6 ${showNotesPanel ? 'lg:grid-cols-5' : 'lg:grid-cols-4'}`}>
+      <div className={`grid grid-cols-1 gap-6 ${
+        showNotesPanel && showTranscriptPanel ? 'lg:grid-cols-6' : 
+        showNotesPanel || showTranscriptPanel ? 'lg:grid-cols-5' : 
+        'lg:grid-cols-4'
+      }`}>
         {/* Sidebar - Course Navigation */}
         <div className="lg:col-span-1">
           <Card className="p-6 sticky top-6">
@@ -257,9 +270,12 @@ return (
             </div>
           </Card>
         </div>
-
 {/* Main Content */}
-        <div className={`${showNotesPanel ? 'lg:col-span-3' : 'lg:col-span-3'}`}>
+        <div className={`${
+          showNotesPanel && showTranscriptPanel ? 'lg:col-span-2' : 
+          showNotesPanel || showTranscriptPanel ? 'lg:col-span-3' : 
+          'lg:col-span-3'
+        }`}>
           <Card className="p-6">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
@@ -344,10 +360,12 @@ return (
 <div className="space-y-6">
                 <VideoPlayer
                   lesson={currentLesson}
-                  onComplete={handleVideoComplete}
+onComplete={handleVideoComplete}
                   onProgress={handleVideoProgress}
                   showNotesPanel={showNotesPanel}
                   onToggleNotes={toggleNotesPanel}
+                  showTranscriptPanel={showTranscriptPanel}
+                  onToggleTranscript={toggleTranscriptPanel}
                 />
                 
                 <div className="flex items-center justify-between">
@@ -393,11 +411,60 @@ return (
                 courseId={courseId}
               />
             </div>
+</div>
+          </div>
+        )}
+
+        {/* Transcript Panel */}
+        {showTranscriptPanel && (
+          <div className="lg:col-span-1">
+            <div className="sticky top-6">
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Transcript</h3>
+                  <Button
+                    variant="ghost"
+                    size="small"
+                    onClick={() => setShowTranscriptPanel(false)}
+                  >
+                    <ApperIcon name="X" size={16} />
+                  </Button>
+                </div>
+                
+                <div className="space-y-2 max-h-96 overflow-y-auto">
+                  {currentLesson?.transcript?.map((segment, index) => {
+                    const isActive = currentVideoTime >= segment.startTime && currentVideoTime < segment.endTime;
+                    return (
+                      <div
+                        key={index}
+                        className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ${
+                          isActive 
+                            ? 'bg-primary-50 border-l-4 border-primary-500 text-primary-800' 
+                            : 'hover:bg-gray-50 text-gray-700'
+                        }`}
+                        onClick={() => {
+                          const video = document.querySelector('video');
+                          if (video) {
+                            video.currentTime = segment.startTime;
+                          }
+                        }}
+                      >
+                        <div className="flex items-start gap-3">
+                          <span className="text-xs text-gray-500 font-mono min-w-12">
+                            {Math.floor(segment.startTime / 60)}:{(segment.startTime % 60).toString().padStart(2, '0')}
+                          </span>
+                          <p className="text-sm leading-relaxed">{segment.text}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </Card>
+            </div>
           </div>
         )}
       </div>
     </div>
-  );
 };
 
 export default LearningInterface;

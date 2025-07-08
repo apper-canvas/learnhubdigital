@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 
-const VideoPlayer = ({ lesson, onProgress, onComplete }) => {
+const VideoPlayer = ({ lesson, onProgress, onComplete, showNotesPanel, onToggleNotes }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -155,16 +155,27 @@ const VideoPlayer = ({ lesson, onProgress, onComplete }) => {
             <span className="text-white text-sm">
               {formatTime(currentTime)} / {formatTime(duration)}
             </span>
-          </div>
+</div>
           
-          <Button
-            variant="ghost"
-            size="small"
-            onClick={() => videoRef.current.requestFullscreen()}
-            className="text-white hover:bg-white/20"
-          >
-            <ApperIcon name="Maximize" size={20} />
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="small"
+              onClick={onToggleNotes}
+              className={`text-white hover:bg-white/20 ${showNotesPanel ? 'bg-white/20' : ''}`}
+            >
+              <ApperIcon name="FileText" size={20} />
+            </Button>
+            
+            <Button
+              variant="ghost"
+              size="small"
+              onClick={() => videoRef.current.requestFullscreen()}
+              className="text-white hover:bg-white/20"
+            >
+              <ApperIcon name="Maximize" size={20} />
+            </Button>
+          </div>
         </div>
       </motion.div>
     </div>

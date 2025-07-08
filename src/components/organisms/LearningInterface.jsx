@@ -8,6 +8,7 @@ import Card from "@/components/atoms/Card";
 import Progress from "@/components/atoms/Progress";
 import VideoPlayer from "@/components/molecules/VideoPlayer";
 import QuizQuestion from "@/components/molecules/QuizQuestion";
+import NotesPanel from "@/components/molecules/NotesPanel";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import { courseService } from "@/services/api/courseService";
@@ -18,7 +19,7 @@ const LearningInterface = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   
-  const [course, setCourse] = useState(null);
+const [course, setCourse] = useState(null);
   const [userProgress, setUserProgress] = useState(null);
   const [currentLesson, setCurrentLesson] = useState(null);
   const [currentQuiz, setCurrentQuiz] = useState(null);
@@ -27,6 +28,8 @@ const LearningInterface = () => {
   const [showQuizResults, setShowQuizResults] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showNotesPanel, setShowNotesPanel] = useState(false);
+  const [currentVideoTime, setCurrentVideoTime] = useState(0);
 
   const loadData = async () => {
     try {
@@ -166,10 +169,18 @@ const LearningInterface = () => {
     }
   };
 
-  const handleRetakeQuiz = () => {
+const handleRetakeQuiz = () => {
     setCurrentQuestion(0);
     setQuizAnswers([]);
     setShowQuizResults(false);
+  };
+
+  const handleVideoProgress = (time) => {
+    setCurrentVideoTime(time);
+  };
+
+  const toggleNotesPanel = () => {
+    setShowNotesPanel(!showNotesPanel);
   };
 
   if (loading) return <Loading />;
@@ -179,9 +190,9 @@ const LearningInterface = () => {
   const overallProgress = userProgress.overallProgress || 0;
   const currentLessonIndex = course.lessons.findIndex(l => l.id === currentLesson?.id);
 
-  return (
+return (
     <div className="max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className={`grid grid-cols-1 gap-6 ${showNotesPanel ? 'lg:grid-cols-5' : 'lg:grid-cols-4'}`}>
         {/* Sidebar - Course Navigation */}
         <div className="lg:col-span-1">
           <Card className="p-6 sticky top-6">
@@ -247,8 +258,8 @@ const LearningInterface = () => {
           </Card>
         </div>
 
-        {/* Main Content */}
-        <div className="lg:col-span-3">
+{/* Main Content */}
+        <div className={`${showNotesPanel ? 'lg:col-span-3' : 'lg:col-span-3'}`}>
           <Card className="p-6">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
@@ -330,10 +341,13 @@ const LearningInterface = () => {
                 )}
               </div>
             ) : (
-              <div className="space-y-6">
+<div className="space-y-6">
                 <VideoPlayer
                   lesson={currentLesson}
                   onComplete={handleVideoComplete}
+                  onProgress={handleVideoProgress}
+                  showNotesPanel={showNotesPanel}
+                  onToggleNotes={toggleNotesPanel}
                 />
                 
                 <div className="flex items-center justify-between">
@@ -364,8 +378,23 @@ const LearningInterface = () => {
                 </div>
               </div>
             )}
-          </Card>
+</Card>
         </div>
+
+        {/* Notes Panel */}
+        {showNotesPanel && (
+          <div className="lg:col-span-1">
+            <div className="sticky top-6">
+              <NotesPanel
+                isOpen={showNotesPanel}
+                onClose={() => setShowNotesPanel(false)}
+                lesson={currentLesson}
+                currentTime={currentVideoTime}
+                courseId={courseId}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

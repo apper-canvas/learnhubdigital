@@ -9,6 +9,7 @@ import Badge from "@/components/atoms/Badge";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
+import CertificateModal from "@/components/molecules/CertificateModal";
 import { courseService } from "@/services/api/courseService";
 import { progressService } from "@/services/api/progressService";
 
@@ -18,7 +19,8 @@ const LearningDashboard = () => {
   const [userProgress, setUserProgress] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
+  const [showCertificateModal, setShowCertificateModal] = useState(false);
   const loadData = async () => {
     try {
       setLoading(true);
@@ -193,8 +195,7 @@ const LearningDashboard = () => {
                     alt={course.title}
                     className="w-20 h-20 rounded-lg object-cover"
                   />
-                  
-                  <div className="flex-1">
+<div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <h3 className="font-semibold text-gray-900">{course.title}</h3>
                       {course.progress.overallProgress === 100 && (
@@ -229,6 +230,19 @@ const LearningDashboard = () => {
                     >
                       View Details
                     </Button>
+                    {course.progress.overallProgress === 100 && course.progress.certificateId && (
+                      <Button
+                        variant="accent"
+                        size="small"
+                        onClick={() => {
+                          setSelectedCertificate({ course, progress: course.progress });
+                          setShowCertificateModal(true);
+                        }}
+                      >
+                        <ApperIcon name="Award" size={14} />
+                        View Certificate
+                      </Button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -240,7 +254,19 @@ const LearningDashboard = () => {
           title="No courses enrolled yet"
           description="Start your learning journey by enrolling in a course that interests you."
           actionLabel="Browse Courses"
-          onAction={() => navigate("/courses")}
+onAction={() => navigate("/courses")}
+        />
+      )}
+
+      {/* Certificate Modal */}
+      {showCertificateModal && selectedCertificate && (
+        <CertificateModal
+          course={selectedCertificate.course}
+          progress={selectedCertificate.progress}
+          onClose={() => {
+            setShowCertificateModal(false);
+            setSelectedCertificate(null);
+          }}
         />
       )}
     </div>

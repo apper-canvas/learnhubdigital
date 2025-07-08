@@ -20,7 +20,7 @@
     "lastAccessed": "2024-01-14T14:15:00Z",
     "overallProgress": 50
   },
-  {
+{
     "Id": 3,
     "courseId": "4",
     "completedLessons": ["lesson-4-1", "lesson-4-2"],
@@ -29,6 +29,8 @@
       "lesson-4-2": 95
     },
     "lastAccessed": "2024-01-13T09:20:00Z",
-    "overallProgress": 100
+    "overallProgress": 100,
+    "certificateId": "cert-004-2024",
+    "completedDate": "2024-01-13T09:20:00Z"
   }
 ]

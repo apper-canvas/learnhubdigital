@@ -1,0 +1,398 @@
+[
+  {
+    "Id": 1,
+    "title": "Complete React Development Course",
+    "description": "Master React from basics to advanced concepts. Learn hooks, context, routing, and state management with real-world projects.",
+    "instructor": "Sarah Johnson",
+    "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=300&fit=crop",
+    "duration": 1200,
+    "difficulty": "intermediate",
+    "category": "Web Development",
+    "lessons": [
+      {
+        "id": "lesson-1-1",
+        "title": "Introduction to React",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 45,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-1-1",
+          "questions": [
+            {
+              "id": "q1-1",
+              "text": "What is React?",
+              "options": [
+                "A JavaScript library for building user interfaces",
+                "A database management system",
+                "A server-side framework",
+                "A styling language"
+              ],
+              "correctAnswer": 0,
+              "explanation": "React is a JavaScript library developed by Facebook for building user interfaces, especially web applications."
+            },
+            {
+              "id": "q1-2",
+              "text": "What are React components?",
+              "options": [
+                "CSS classes",
+                "Reusable pieces of UI",
+                "HTML elements",
+                "JavaScript functions only"
+              ],
+              "correctAnswer": 1,
+              "explanation": "React components are reusable pieces of UI that can be combined to create complex applications."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      },
+      {
+        "id": "lesson-1-2",
+        "title": "JSX and Components",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 60,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-1-2",
+          "questions": [
+            {
+              "id": "q2-1",
+              "text": "What is JSX?",
+              "options": [
+                "A JavaScript extension",
+                "A syntax extension for JavaScript",
+                "A new programming language",
+                "A CSS framework"
+              ],
+              "correctAnswer": 1,
+              "explanation": "JSX is a syntax extension for JavaScript that allows you to write HTML-like code in JavaScript files."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      },
+      {
+        "id": "lesson-1-3",
+        "title": "State and Props",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 75,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-1-3",
+          "questions": [
+            {
+              "id": "q3-1",
+              "text": "What is the difference between state and props?",
+              "options": [
+                "State is mutable, props are immutable",
+                "Props are mutable, state is immutable",
+                "Both are mutable",
+                "Both are immutable"
+              ],
+              "correctAnswer": 0,
+              "explanation": "State is mutable and managed within a component, while props are immutable and passed from parent components."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "title": "Python Data Science Fundamentals",
+    "description": "Learn Python for data science with pandas, numpy, and matplotlib. Perfect for beginners starting their data science journey.",
+    "instructor": "Dr. Michael Chen",
+    "thumbnail": "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=300&fit=crop",
+    "duration": 900,
+    "difficulty": "beginner",
+    "category": "Data Science",
+    "lessons": [
+      {
+        "id": "lesson-2-1",
+        "title": "Python Basics for Data Science",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 50,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-2-1",
+          "questions": [
+            {
+              "id": "q4-1",
+              "text": "Which library is commonly used for data manipulation in Python?",
+              "options": [
+                "matplotlib",
+                "pandas",
+                "numpy",
+                "scipy"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Pandas is the most commonly used library for data manipulation and analysis in Python."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      },
+      {
+        "id": "lesson-2-2",
+        "title": "Working with Pandas",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 65,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-2-2",
+          "questions": [
+            {
+              "id": "q5-1",
+              "text": "What is a DataFrame in pandas?",
+              "options": [
+                "A single column of data",
+                "A 2-dimensional data structure",
+                "A plotting function",
+                "A statistical method"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A DataFrame is a 2-dimensional data structure in pandas, similar to a table or spreadsheet."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "title": "Mobile App Development with React Native",
+    "description": "Build cross-platform mobile apps using React Native. Learn navigation, state management, and native module integration.",
+    "instructor": "Alex Rodriguez",
+    "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop",
+    "duration": 1500,
+    "difficulty": "advanced",
+    "category": "Mobile Development",
+    "lessons": [
+      {
+        "id": "lesson-3-1",
+        "title": "React Native Fundamentals",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 80,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-3-1",
+          "questions": [
+            {
+              "id": "q6-1",
+              "text": "What is React Native?",
+              "options": [
+                "A web framework",
+                "A mobile app development framework",
+                "A database system",
+                "A testing library"
+              ],
+              "correctAnswer": 1,
+              "explanation": "React Native is a framework for building mobile applications using React and JavaScript."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      },
+      {
+        "id": "lesson-3-2",
+        "title": "Navigation and Routing",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 90,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-3-2",
+          "questions": [
+            {
+              "id": "q7-1",
+              "text": "Which library is commonly used for navigation in React Native?",
+              "options": [
+                "React Router",
+                "React Navigation",
+                "Native Navigation",
+                "React Native Router"
+              ],
+              "correctAnswer": 1,
+              "explanation": "React Navigation is the most popular navigation library for React Native applications."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "title": "UI/UX Design Principles",
+    "description": "Learn fundamental design principles, user research methods, and prototyping techniques for creating exceptional user experiences.",
+    "instructor": "Emma Thompson",
+    "thumbnail": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
+    "duration": 720,
+    "difficulty": "beginner",
+    "category": "Design",
+    "lessons": [
+      {
+        "id": "lesson-4-1",
+        "title": "Design Fundamentals",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 55,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-4-1",
+          "questions": [
+            {
+              "id": "q8-1",
+              "text": "What is the main goal of UX design?",
+              "options": [
+                "Making things look pretty",
+                "Improving user satisfaction",
+                "Adding more features",
+                "Reducing development time"
+              ],
+              "correctAnswer": 1,
+              "explanation": "The main goal of UX design is to improve user satisfaction by making products more usable and accessible."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      },
+      {
+        "id": "lesson-4-2",
+        "title": "User Research Methods",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 70,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-4-2",
+          "questions": [
+            {
+              "id": "q9-1",
+              "text": "What is a user persona?",
+              "options": [
+                "A real user",
+                "A fictional character representing a user segment",
+                "A design template",
+                "A testing method"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A user persona is a fictional character created to represent a specific user segment, helping designers understand user needs and behaviors."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      }
+    ]
+  },
+  {
+    "Id": 5,
+    "title": "Advanced JavaScript Concepts",
+    "description": "Deep dive into advanced JavaScript topics including closures, prototypes, async programming, and modern ES6+ features.",
+    "instructor": "David Kim",
+    "thumbnail": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop",
+    "duration": 1000,
+    "difficulty": "advanced",
+    "category": "Web Development",
+    "lessons": [
+      {
+        "id": "lesson-5-1",
+        "title": "Closures and Scope",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 85,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-5-1",
+          "questions": [
+            {
+              "id": "q10-1",
+              "text": "What is a closure in JavaScript?",
+              "options": [
+                "A function that returns another function",
+                "A function that has access to variables from its outer scope",
+                "A way to close a program",
+                "A type of loop"
+              ],
+              "correctAnswer": 1,
+              "explanation": "A closure is a function that has access to variables from its outer (enclosing) scope even after the outer function has returned."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      },
+      {
+        "id": "lesson-5-2",
+        "title": "Asynchronous Programming",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 95,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-5-2",
+          "questions": [
+            {
+              "id": "q11-1",
+              "text": "What is the difference between async/await and Promises?",
+              "options": [
+                "They are completely different",
+                "Async/await is syntactic sugar for Promises",
+                "Promises are faster",
+                "Async/await doesn't use Promises"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Async/await is syntactic sugar that makes working with Promises easier and more readable, but it's built on top of Promises."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      }
+    ]
+  },
+  {
+    "Id": 6,
+    "title": "Machine Learning with Python",
+    "description": "Introduction to machine learning concepts using Python. Learn supervised and unsupervised learning with scikit-learn.",
+    "instructor": "Dr. Lisa Wang",
+    "thumbnail": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop",
+    "duration": 1800,
+    "difficulty": "intermediate",
+    "category": "Data Science",
+    "lessons": [
+      {
+        "id": "lesson-6-1",
+        "title": "Machine Learning Fundamentals",
+        "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+        "duration": 100,
+        "completed": false,
+        "quiz": {
+          "id": "quiz-6-1",
+          "questions": [
+            {
+              "id": "q12-1",
+              "text": "What is supervised learning?",
+              "options": [
+                "Learning without a teacher",
+                "Learning with labeled data",
+                "Learning from mistakes",
+                "Learning by watching"
+              ],
+              "correctAnswer": 1,
+              "explanation": "Supervised learning is a type of machine learning where the algorithm learns from labeled training data to make predictions on new, unseen data."
+            }
+          ],
+          "passingScore": 70,
+          "attempts": 3
+        }
+      }
+    ]
+  }
+]

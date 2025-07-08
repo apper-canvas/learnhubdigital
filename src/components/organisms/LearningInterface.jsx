@@ -197,9 +197,9 @@ setCurrentVideoTime(time);
   if (!course || !userProgress) return <Error message="Course content not found" onRetry={loadData} />;
 
   const overallProgress = userProgress.overallProgress || 0;
-  const currentLessonIndex = course.lessons.findIndex(l => l.id === currentLesson?.id);
+const currentLessonIndex = course.lessons.findIndex(l => l.id === currentLesson?.id);
 
-return (
+  return (
     <div className="max-w-7xl mx-auto">
       <div className={`grid grid-cols-1 gap-6 ${
         showNotesPanel && showTranscriptPanel ? 'lg:grid-cols-6' : 
@@ -269,8 +269,9 @@ return (
               })}
             </div>
           </Card>
-        </div>
-{/* Main Content */}
+</div>
+        
+        {/* Main Content */}
         <div className={`${
           showNotesPanel && showTranscriptPanel ? 'lg:col-span-2' : 
           showNotesPanel || showTranscriptPanel ? 'lg:col-span-3' : 
@@ -357,10 +358,10 @@ return (
                 )}
               </div>
             ) : (
-<div className="space-y-6">
+              <div className="space-y-6">
                 <VideoPlayer
                   lesson={currentLesson}
-onComplete={handleVideoComplete}
+                  onComplete={handleVideoComplete}
                   onProgress={handleVideoProgress}
                   showNotesPanel={showNotesPanel}
                   onToggleNotes={toggleNotesPanel}
@@ -396,7 +397,7 @@ onComplete={handleVideoComplete}
                 </div>
               </div>
             )}
-</Card>
+          </Card>
         </div>
 
         {/* Notes Panel */}
@@ -411,7 +412,6 @@ onComplete={handleVideoComplete}
                 courseId={courseId}
               />
             </div>
-</div>
           </div>
         )}
 
@@ -463,8 +463,9 @@ onComplete={handleVideoComplete}
             </div>
           </div>
         )}
-      </div>
+</div>
     </div>
+  );
 };
 
 export default LearningInterface;
